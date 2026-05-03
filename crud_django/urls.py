@@ -20,5 +20,7 @@ from django.urls import path, include
 # Project URL
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("sport/", include("sport.url")),
+    path("tour/", include("tour.url")),
     path("", include("plan.url"))
 ]
