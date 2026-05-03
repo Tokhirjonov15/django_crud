@@ -9,6 +9,7 @@ Install Project and Applications:
 
   - django-admin startproject crud_django .
   - python manage.py startapp app_name
+  - python manage.py createsuperuser
 
 Migrate Database:
   
@@ -26,4 +27,6 @@ Run Project via activated venv:
 
   - python manage.py runserver
 
+MySQL DB Structure:
 
+  - CLUSTER > DB > TABLE > COLUMN > ROW
