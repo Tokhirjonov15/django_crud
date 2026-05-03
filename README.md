@@ -13,6 +13,14 @@ Install Project and Applications:
 Migrate Database:
   
   - python manage.py migrate
+  - dir db.sqlite3
+  - python manage.py shell
+  - from django.db import connection
+  - connection.introspection.table_names()
+
+Activate SQLite:
+ 
+  - C:\sqlite\sqlite3.exe db.sqlite3
 
 Run Project via activated venv:
 
