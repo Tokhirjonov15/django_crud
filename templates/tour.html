@@ -1,1 +1,20 @@
-<h1>This is Tour Page!</h1>
+{% extends "base.html" %}
+
+{% block title %}Tour | Daily Plans{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>Tour Events</h1>
+    <p>Hardcoded travel ideas for weekends, short breaks, and memorable routes.</p>
+</section>
+
+<section class="event-grid">
+    {% for tour in tours %}
+        <article class="event-card">
+            <h2>{{ tour.title }}</h2>
+            <div class="event-meta">{{ tour.date }} · {{ tour.place }}</div>
+            <p class="muted">{{ tour.description }}</p>
+        </article>
+    {% endfor %}
+</section>
+{% endblock %}

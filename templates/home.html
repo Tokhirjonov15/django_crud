@@ -1,1 +1,67 @@
-<h1>Hello World! {{plans}}</h1>
+{% extends "base.html" %}
+
+{% block title %}Home | Daily Plans{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>What is your plans for today?</h1>
+    <p>Create your daily plans, update them as your day changes, and delete finished notes from the database when they are no longer needed.</p>
+</section>
+
+<section class="grid">
+    <form class="panel" method="post" action="{% url 'create_plan' %}">
+        {% csrf_token %}
+        <h2>Create Plan</h2>
+        <div class="field">
+            <label for="title">Plan title</label>
+            <input id="title" type="text" name="title" placeholder="Study Django models" required>
+        </div>
+        <div class="field">
+            <label for="description">Details</label>
+            <textarea id="description" name="description" placeholder="Write useful notes for this plan"></textarea>
+        </div>
+        <button class="button" type="submit">Create</button>
+    </form>
+
+    <div class="list">
+        {% for plan in plans %}
+            <article class="item-card">
+                <div class="item-head">
+                    <h2 class="item-title">{{ plan.title }}</h2>
+                    {% if plan.is_done %}
+                        <span class="badge">Done</span>
+                    {% else %}
+                        <span class="badge">Active</span>
+                    {% endif %}
+                </div>
+                {% if plan.description %}
+                    <p class="muted">{{ plan.description }}</p>
+                {% else %}
+                    <p class="muted">No extra details yet.</p>
+                {% endif %}
+                <p class="muted">Created: {{ plan.created_at|date:"M d, Y H:i" }}</p>
+
+                <form class="edit-form" method="post" action="{% url 'update_plan' plan.id %}">
+                    {% csrf_token %}
+                    <input type="text" name="title" value="{{ plan.title }}" required>
+                    <textarea name="description">{{ plan.description }}</textarea>
+                    <label class="check-row">
+                        <input type="checkbox" name="is_done" {% if plan.is_done %}checked{% endif %}>
+                        Mark as done
+                    </label>
+                    <div class="actions">
+                        <button class="button secondary" type="submit">Update</button>
+                    </div>
+                </form>
+
+                <form class="actions" method="post" action="{% url 'delete_plan' plan.id %}">
+                    {% csrf_token %}
+                    <button class="button danger" type="submit">Delete</button>
+                </form>
+            </article>
+        {% empty %}
+            <div class="empty">No plans yet. Create your first plan for today.</div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

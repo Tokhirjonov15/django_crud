@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Daily Plans{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a class="brand" href="{% url 'get_home' %}">Daily Plans</a>
+            <div class="nav-links">
+                <a class="{% if active_page == 'home' %}active{% endif %}" href="{% url 'get_home' %}">Home</a>
+                <a class="{% if active_page == 'sport' %}active{% endif %}" href="{% url 'get_sports' %}">Sport</a>
+                <a class="{% if active_page == 'tour' %}active{% endif %}" href="{% url 'get_tours' %}">Tour</a>
+                <a href="https://tokhirjonov15.github.io/portfolio/">Portfolio</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="page">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
